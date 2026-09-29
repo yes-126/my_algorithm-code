@@ -1,0 +1,51 @@
+{
+  // VS Code의 빌드·테스트 작업.
+  //
+  // 기본 "C/C++: gcc 활성 파일 빌드"는 열려 있는 파일 하나만 컴파일한다.
+  // 이 프로젝트는 main.c와 sort.c가 나뉘어 있어 그렇게 빌드하면
+  // `undefined reference to bubbleSort`로 링크가 실패한다.
+  // 여기 정의한 작업은 Makefile을 거치므로 프로젝트 전체를 빌드한다.
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "make run",
+      "type": "shell",
+      "command": "make run",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+    },
+    {
+      "label": "make test",
+      "type": "shell",
+      "command": "make test",
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "panel": "shared", "clear": true }
+    },
+    {
+      // launch.json의 C 디버그 구성이 실행 전에 부르는 작업.
+      "label": "make debug",
+      "type": "shell",
+      "command": "make debug",
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "silent", "panel": "shared" }
+    },
+    {
+      // launch.json의 "C 디버그 (현재 파일)"이 부르는 작업.
+      // 열려 있는 .c 파일과 같은 폴더의 .c를 함께 빌드한다.
+      "label": "make debug (현재 파일)",
+      "type": "shell",
+      "command": "make ${relativeFileDirname}/${fileBasenameNoExtension}.debug.out",
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "silent", "panel": "shared" }
+    },
+    {
+      "label": "make clean",
+      "type": "shell",
+      "command": "make clean",
+      "problemMatcher": [],
+      "presentation": { "reveal": "silent", "panel": "shared" }
+    }
+  ]
+}

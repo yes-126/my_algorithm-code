@@ -1,0 +1,69 @@
+{
+  // F5로 디버깅할 때 쓰는 구성.
+  // C 쪽은 실행 전에 `make debug`가 돌아 심볼이 있는 바이너리를 만든다.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C 디버그 (src/main.c)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/main.debug.out",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "make debug",
+      "setupCommands": [
+        {
+          "description": "gdb의 구조체 보기 좋게 출력",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
+      // 열려 있는 .c 파일을 그대로 디버깅한다. 주제 폴더가 늘어나도
+      // 구성을 새로 만들 필요가 없다.
+      "name": "C 디버그 (현재 파일)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/${fileBasenameNoExtension}.debug.out",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "make debug (현재 파일)",
+      "setupCommands": [
+        {
+          "description": "gdb의 구조체 보기 좋게 출력",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
+      "name": "Python 디버그 (현재 파일)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "cwd": "${fileDirname}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Python 디버그 (src/main.py)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/main.py",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}

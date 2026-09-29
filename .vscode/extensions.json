@@ -1,0 +1,10 @@
+{
+  // 이 저장소를 열었을 때 VS Code가 권하는 확장.
+  // devcontainer.json이 Codespaces에서는 자동으로 설치한다.
+  "recommendations": [
+    "ms-vscode.cpptools",
+    "ms-python.python",
+    "ms-python.debugpy",
+    "formulahendry.code-runner"
+  ]
+}

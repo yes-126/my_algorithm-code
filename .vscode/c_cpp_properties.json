@@ -1,0 +1,14 @@
+{
+  // IntelliSense가 src/의 헤더를 찾도록 알려 준다.
+  // 이 설정이 없으면 #include "sort.h"에 빨간 줄이 그어진다.
+  "version": 4,
+  "configurations": [
+    {
+      "name": "container",
+      "includePath": ["${workspaceFolder}/src"],
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "c17",
+      "cppStandard": "c++17"
+    }
+  ]
+}
