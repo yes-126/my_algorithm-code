@@ -10,7 +10,7 @@
 
 const char *SHAPE_NAMES[SHAPE_COUNT] = {"random", "sorted", "reversed", "nearly", "dups"};
 
-/* 시간(ms). 정렬 코드는 시계를 들고 있지 않고, 여기서 바깥에서 잰다 */
+// 시간(ms). 정렬 코드는 바깥에서 시간을 잼
 static double nowMs(void) {
 #ifdef _WIN32
     LARGE_INTEGER f, t;
@@ -24,8 +24,7 @@ static double nowMs(void) {
 #endif
 }
 
-/* rand()는 플랫폼마다 다르므로(Windows는 최대 32767) 직접 만든 난수를 쓴다.
-   덕분에 어느 컴퓨터에서 돌려도 입력이, 곧 비교·이동 횟수가 똑같다 */
+// rand()는 직접 만든 난수를 씀. 따라서 어느 컴퓨터에서 돌려도 입력, 곧 비교·이동 횟수가 똑같음
 static uint32_t rngNext(uint32_t *s) {
     uint32_t x = *s;
     x ^= x << 13;
@@ -36,7 +35,7 @@ static uint32_t rngNext(uint32_t *s) {
 
 int recordCompare(const void *a, const void *b) {
     const Record *x = (const Record *)a, *y = (const Record *)b;
-    return (x->key > y->key) - (x->key < y->key);   /* tag까지 보면 모두 안정해 보인다 */
+    return (x->key > y->key) - (x->key < y->key);   // tag까지 보면 모두 안정해 보임
 }
 
 Record *makeInput(InputShape shape, size_t n, uint32_t seed) {
@@ -90,7 +89,7 @@ BenchResult benchRun(const SortAlgorithm *algo, const Record *input, size_t n, i
     if (work == NULL) return r;
 
     for (int k = 0; k < reps; k++) {
-        memcpy(work, input, n * sizeof *work);           /* 복사는 시간에서 뺀다 */
+        memcpy(work, input, n * sizeof *work);           // 복사는 시간에서 뺀다
         memset(&r.stats, 0, sizeof r.stats);
         double t0 = nowMs();
         algo->sort(work, n, sizeof(Record), recordCompare, &r.stats);
